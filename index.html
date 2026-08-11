@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Surprise!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a0826, #3a0037);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating Balloons Background Animation */
+        .balloon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+            display: none;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 50px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            animation: floatUp 8s linear infinite;
+            opacity: 0.8;
+        }
+
+        .balloon::after {
+            content: "";
+            position: absolute;
+            bottom: -12px;
+            left: 19px;
+            width: 2px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+        }
+
+        /* Card Layout */
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 30px 20px;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        /* Step 1: Name Input */
+        .input-box input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 2px solid #ff4b5c;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            margin-top: 15px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff4b5c, #ff6b81);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 75, 92, 0.4);
+        }
+
+        /* Step 2: Face ID */
+        .face-id-box {
+            display: none;
+        }
+
+        .face-icon {
+            width: 80px;
+            height: 80px;
+            border: 4px dashed #ff4b5c;
+            border-radius: 20px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); border-color: #ff4b5c; }
+            50% { transform: scale(1.1); border-color: #00ff88; }
+            100% { transform: scale(1); border-color: #ff4b5c; }
+        }
+
+        /* Step 3: Fingerprint */
+        .finger-box {
+            display: none;
+        }
+
+        .finger-btn {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(255, 75, 92, 0.15);
+            border: 2px solid #ff4b5c;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 75, 92, 0.5);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 75, 92, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(255, 75, 92, 0.9); }
+        }
+
+        /* Step 4: Final Main Content */
+        .final-content {
+            display: none;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .final-content::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .final-content::-webkit-scrollbar-thumb {
+            background: #ff4b5c;
+            border-radius: 10px;
+        }
+
+        .bday-img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 16px;
+            border: 3px solid #ff4b5c;
+            box-shadow: 0 8px 25px rgba(255, 75, 92, 0.4);
+            margin: 15px 0;
+        }
+
+        h2 {
+            color: #ff4b5c;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .wish-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #e2e2e2;
+            text-align: justify;
+            margin-top: 15px;
+            direction: rtl;
+        }
+
+        .poetry {
+            background: rgba(255, 255, 255, 0.05);
+            border-right: 3px solid #ff4b5c;
+            padding: 12px;
+            margin: 15px 0;
+            font-style: italic;
+            text-align: center;
+            color: #ffd1d6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Balloons Layer -->
+    <div class="balloon-container" id="balloonContainer"></div>
+
+    <!-- Main Card Container -->
+    <div class="card">
+        
+        <!-- STEP 1: Name Input -->
+        <div id="step1" class="input-box">
+            <h2>🎉 Surprise Verification</h2>
+            <p style="font-size: 14px; opacity: 0.8;">براہ کرم اپنا خوبصورت نام درج کریں</p>
+            <input type="text" id="userName" placeholder="Enter your name...">
+            <button class="btn" onclick="startVerification()">Next ➔</button>
+        </div>
+
+        <!-- STEP 2: Face ID -->
+        <div id="step2" class="face-id-box">
+            <h2>Face ID Scanning...</h2>
+            <div class="face-icon">👤</div>
+            <p id="faceText" style="font-size: 14px; color: #ffaa00;">Verifying identity...</p>
+        </div>
+
+        <!-- STEP 3: Fingerprint -->
+        <div id="step3" class="finger-box">
+            <h2>Fingerprint Unlock</h2>
+            <p style="font-size: 13px; opacity: 0.8;">ان لاک کرنے کے لیے نیچے انگلی کا نشان دبائیں</p>
+            <div class="finger-btn" onclick="unlockSurprise()">☝️</div>
+            <p style="font-size: 12px; color: #ff4b5c;">Tap to Scan Fingerprint</p>
+        </div>
+
+        <!-- STEP 4: Final Birthday Wishes Page -->
+        <div id="step4" class="final-content">
+            <h2 id="greetTitle">Happy Birthday! 🎂</h2>
+            
+            <!-- Picture Section -->
+            <img src="pic.jpg" alt="Birthday Special" class="bday-img">
+
+            <div class="poetry">
+                تتلیوں کے پروں جیسا تمہارا روپ ہو<br>
+                ہر جنم میں تمہاری ایسی ہی دھوپ ہو ✨🌸
+            </div>
+
+            <div class="wish-text">
+                <p><strong>سالگرہ بہت بہت مبارک ہو! 🎉✨</strong></p>
+                <br>
+                <p>آج کا دن بہت خاص ہے، کیونکہ آج کے دن ایک بہترین اور پیاری شخصیت اس دنیا میں آئی۔ 2006 کی نٹ کھٹ بچپن کی یادوں سے لے کر 2026 کے اس خوبصورت اور سنجیدہ موڑ تک، تمہارا یہ سفر بہت ہی پیارا اور شاندار رہا ہے۔</p>
+                <br>
+                <p>دعا ہے کہ آنے والی زندگی تمہارے لیے ڈھیروں خوشیاں، کامیابی، اچھی صحت اور سکون لائے۔ تم جہاں بھی رہو، ہمیشہ تتلیوں کی طرح مسکراتی رہو اور تمہاری زندگی پھولوں کی طرح مہکتی رہے۔</p>
+                <br>
+                <p>تمہاری ہر ادھوری خواہش پوری ہو اور خدا تمہیں ہر بری نظر سے محفوظ رکھے۔ ایک بار پھر سالگرہ کی دل کی گہرائیوں سے مبارکباد! 🎈👑💖</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Start Step 1 to Step 2
+        function startVerification() {
+            let name = document.getElementById('userName').value;
+            if(name.trim() === "") {
+                alert("براہ کرم اپنا نام درج کریں!");
+                return;
+            }
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+
+            // Automatic Face ID scanning effect
+            setTimeout(() => {
+                document.getElementById('faceText').innerText = "Face ID Verified! ✅";
+                document.getElementById('faceText').style.color = "#00ff88";
+                setTimeout(() => {
+                    document.getElementById('step2').style.display = 'none';
+                    document.getElementById('step3').style.display = 'block';
+                }, 1200);
+            }, 2000);
+        }
+
+        // Unlock Final Page (Step 3 to Step 4)
+        function unlockSurprise() {
+            let name = document.getElementById('userName').value;
+            document.getElementById('step3').style.display = 'none';
+            document.getElementById('step4').style.display = 'block';
+            
+            if(name) {
+                document.getElementById('greetTitle').innerText = "Happy Birthday, " + name + "! 🎂✨";
+            }
+
+            // Start Continuous Balloons Animation
+            document.getElementById('balloonContainer').style.display = 'block';
+            createBalloons();
+        }
+
+        // Continuous Balloon Generator
+        function createBalloons() {
+            const container = document.getElementById('balloonContainer');
+            const colors = ['#ff4b5c', '#ff6b81', '#ffd1d6', '#00ff88', '#ffaa00', '#aa00ff'];
+
+            setInterval(() => {
+                const balloon = document.createElement('div');
+                balloon.classList.add('balloon');
+                balloon.style.left = Math.random() * 100 + 'vw';
+                balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                balloon.style.animationDuration = (Math.random() * 4 + 5) + 's';
+                container.appendChild(balloon);
+
+                setTimeout(() => {
+                    balloon.remove();
+                }, 9000);
+            }, 400);
+        }
+    </script>
+</body>
+</html>
